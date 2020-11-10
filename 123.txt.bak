@@ -1,0 +1,53 @@
+--20201030--
+DeployerConfigFactory加上缓存后减少反射次数，会出现以下问题：
+ 1.释放一个技能后敌人持续伤害，但释放后又释放普攻技能，将导致无法持续伤害。
+ 2.A技能释放前，立即点击B技能，将释放两次B技能。
+FSM有限状态机，与攻击有少许联系（游戏AI）策划一边测试，一边修改
+
+--20201031--
+FSMTrigger父类，FSMState父类，FSMBase状态机。状态机调用父类方法
+子类实现实现父类完成动态绑定。
+
+--20201101--
+20201030的两个问题
+解决方案：1.删除DamageImpact中的skilldata。2.动作队列（动作较多时）；
+去除无效技能的方法。在CharacterInputController.OnSkillButtonDown
+中判断如果正在攻击则退出。
+状态机调用技能系统，实现自动随机攻击。
+
+--20201102--
+完成PatrollingState三种巡逻功能；AIConfigurationReader，AIConfigurationReaderFactory
+动态创建List<FSMState>()以及FSMState.AddMap(triggerID, stateID)
+
+--20201103--
+1.实现玩家攻击敌人（角色系统）
+        --枪将攻击力传递给子弹(通过枪传递)
+        --玩家子弹到达目标时根据部位伤害敌人
+2.public event EventHandler<BulletArrivedEventArgs> ArrivedTargetPoint;
+消息到达（事件源）
+        1.定义事件参数类
+        2.定义委托数据类型（也可以使用泛型委托）
+        EventHandler(object sender,TEventArgs e)
+        Action<BulletArrivedEventArgs>
+        3.声明事件
+        4.引发事件
+        ----------------------
+        5.注册事件
+
+--20201108--
+射击游戏敌人自动生成像主角发射子弹
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+�
