@@ -66,8 +66,6 @@ public class XMLTest : MonoBehaviour
 
     }
 
-    //删除
-
 
     //增加
 
@@ -110,17 +108,122 @@ public class XMLTest : MonoBehaviour
 
         //保存文件
 
+        xmlDoc.Save(filePath);
+
+    }
+
+    //查询
+    private void FindXML()
+    {
+        Debug.Log("FindXML()");
+
+        //检测文件是否存在
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("no file");
+            return;
+        }
+
+        //xmlDoc实例
+        XmlDocument xmlDoc = new XmlDocument();
+
+        //加载XML文件
+        xmlDoc.Load(filePath); Debug.Log(xmlDoc.InnerXml);
+
+        //获取根节点
+        XmlNode root = xmlDoc.SelectSingleNode("root_Element");
+
+        XmlNodeList list = root.ChildNodes;
+
+        foreach (XmlElement e in list)
+        {
+            if (e.Name == "CharactorData" && e.GetAttribute("id")=="1000")
+            {
+                eName = e.GetAttribute("name");
+                eJobMode = e.SelectSingleNode("JobMode").InnerText;
+            }
+
+        }
 
 
     }
 
 
 
-
     //修改
+    private void FixXML()
+    {
+        Debug.Log("FindXML()");
+
+        //检测文件是否存在
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("no file");
+            return;
+        }
+
+        //xmlDoc实例
+        XmlDocument xmlDoc = new XmlDocument();
+
+        //加载XML文件
+        xmlDoc.Load(filePath); Debug.Log(xmlDoc.InnerXml);
+
+        //获取根节点
+        XmlNode root = xmlDoc.SelectSingleNode("root_Element");
+
+        XmlNodeList list = root.ChildNodes;
+
+        foreach (XmlElement e in list)
+        {
+            if (e.Name == "CharactorData" && e.GetAttribute("id")=="1000")
+            {
+                e.SetAttribute("id","2000");
+                e.SelectSingleNode("JobMode").InnerText = "20";
+            }
+
+        }
+
+        xmlDoc.Save(filePath);
+    }
 
 
-    //查询
+    //删除
+    private void RemoveXML()
+    {
+        Debug.Log("FindXML()");
+
+        //检测文件是否存在
+        if (!File.Exists(filePath))
+        {
+            Debug.LogError("no file");
+            return;
+        }
+
+        //xmlDoc实例
+        XmlDocument xmlDoc = new XmlDocument();
+
+        //加载XML文件
+        xmlDoc.Load(filePath); Debug.Log(xmlDoc.InnerXml);
+
+        //获取根节点
+        XmlNode root = xmlDoc.SelectSingleNode("root_Element");
+
+        XmlNodeList list = root.ChildNodes;
+
+        foreach (XmlElement e in list)
+        {
+            if (e.Name == "CharactorData" && e.GetAttribute("id") == "1000")
+            {
+                e.RemoveAttribute("id");
+                e.RemoveChild(e.SelectSingleNode("JobMode"));
+            }
+
+        }
+
+        xmlDoc.Save(filePath);
+    }
+
+
 
 
 //     private void AddElement()
@@ -155,4 +258,8 @@ public class XMLTest : MonoBehaviour
 
 
 
+
+    public string eName { get; set; }
+
+    public string eJobMode { get; set; }
 }
