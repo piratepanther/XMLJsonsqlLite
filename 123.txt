@@ -4,7 +4,8 @@ System.Xml，XML生成、head声明、根节点、一级节点、二级节点
 --20201111--
 LitJson创建、解析Json
 
-
+--20201112--
+SQLite增删改查，MVC设计，UI调Proxy，Proxy实例数据类，查表，返回
 
 
 

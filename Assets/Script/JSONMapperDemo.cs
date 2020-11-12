@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections
+using System.Collections;
 using LitJson;
 
 public class JSONMapperDemo : MonoBehaviour
